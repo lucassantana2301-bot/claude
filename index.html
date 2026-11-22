@@ -311,7 +311,8 @@
     if (!keys.length) return 0;
     var best = 1, run = 1;
     for (var i = 1; i < keys.length; i++) {
-      var diff = (parseKey(keys[i]) - parseKey(keys[i - 1])) / 86400000;
+      // Math.round: dias com horário de verão têm 23 ou 25 horas e quebrariam a contagem.
+      var diff = Math.round((parseKey(keys[i]) - parseKey(keys[i - 1])) / 86400000);
       run = diff === 1 ? run + 1 : 1;
       if (run > best) best = run;
     }
